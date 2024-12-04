@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('content')
 
@@ -52,32 +52,7 @@
                     </div>
                     @enderror
                 </div>
-                <div class="col-md-6">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                        name="email" placeholder="Email" value="{{ $user->email }}" required>
-                    @error('email')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                
-                <div class="col-md-6">
-                    <label for="roles" class="form-label">Role</label>
-                    <select class="form-select @error('roles') is-invalid @enderror" id="roles" name="roles[]" required>
-                        @foreach ($roles as $roleId => $roleName)
-                        @if ($roleName !== 'Member' && $roleName !== 'Trainer' && $roleName !== 'Franchise Admin')
-                        <option value="{{ $roleId }}">{{ $roleName }}</option>
-                        @endif
-                        @endforeach
-                    </select>
-                    @error('roles')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
+
                 <div class="col-md-12 text-center">
                     <button type="submit" class="btn btn-bg-blue mt-3">Submit</button>
                     <button type="reset" class="btn btn-bg-orange mt-3">Reset</button>

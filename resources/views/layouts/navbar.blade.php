@@ -1,4 +1,4 @@
-<nav class="sidebar sidebar-offcanvas" id="sidebar">
+<nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #EAD9F1;">
     <ul class="nav">
         <li class="nav-item nav-profile">
             <a href="#" class="nav-link">
@@ -27,7 +27,7 @@
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="ui-basic">ph
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
@@ -39,6 +39,13 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">
                 <span class="menu-title">User</span>
+                <i class="mdi mdi-account-circle menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('bonds.index') }}">
+                <span class="menu-title">Bond Management</span>
                 <i class="mdi mdi-account-circle menu-icon"></i>
             </a>
         </li>

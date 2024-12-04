@@ -1,6 +1,8 @@
-<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+    style="background-color: #EAD9F1;">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        {{-- <a class="navbar-brand brand-logo" href="/"><img src="{{ asset('assets/images/logo.png') }}" alt="logo" /></a> --}}
+        {{-- <a class="navbar-brand brand-logo" href="/"><img src="{{ asset('assets/images/logo.png') }}"
+                alt="logo" /></a> --}}
         {{-- <a class="navbar-brand brand-logo-mini" href="/"><img src="{{ asset('assets/images/logoMini.png') }}"
                 alt="logo" /></a> --}}
     </div>

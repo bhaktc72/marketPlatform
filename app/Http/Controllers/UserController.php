@@ -34,7 +34,7 @@ class UserController extends Controller
     public function create()
     {
         // $userId = User::first()->id;
-        // $roles = Role::pluck('name', 'name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         return view('admin.users.create', compact('roles'));
     }
 
@@ -57,7 +57,7 @@ class UserController extends Controller
         $user = new User();
         $user->firstName = $request->input('firstName');
         $user->lastName = $request->input('lastName');
-        $user->userId = substr($request->input('firstName'), 0, 1) . rand(10000, 99999);
+        $user->userId = substr($request->input('firstName'), 0, 1) . substr($request->input('lastName'), 0, 1) . rand(10000, 99999);
         $user->password = $input['password'];
         $user->status = 'Active';
         $user->save();
@@ -67,13 +67,13 @@ class UserController extends Controller
             ->with('success', 'User created successfully');
     }
 
-    public function edit($id): View
+    public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
+        // $roles = Role::pluck('name', 'name')->all();
         // $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -83,7 +83,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
 
         $user = User::find($id);
@@ -105,17 +105,39 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id): RedirectResponse
+    public function delete($id)
     {
         $user = User::find($id);
         $user->status = 'Deleted';
+        $user->save();
+
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }
 
 
-    public function export()
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
+    public function updateInline(Request $request, $id)
+{
+    $user = User::findOrFail($id);
+    $field = $request->input('field');
+    $value = $request->input('value');
+
+    if (in_array($field, ['firstName', 'lastName'])) {
+        $user->$field = $value;
+        $user->save();
+
+        return response()->json(['success' => true]);
     }
+
+    return response()->json(['success' => false, 'message' => 'Invalid field.']);
+}
+
+
+
+
+
+    // public function export()
+    // {
+    //     return Excel::download(new UsersExport, 'users.xlsx');
+    // }
 }
