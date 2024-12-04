@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\BondManagementController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Artisan;
@@ -49,7 +50,8 @@ Route::get('/bonds/export', [BondManagementController::class, 'export'])->name('
 Route::post('/bonds/import', [BondManagementController::class, 'import'])->name('bonds.import');
 
 
-
+//market live data
+Route::get('/stock-data', [StockController::class, 'getLiveData']);
 
 
 });

@@ -19,7 +19,7 @@
                         <h5 class="card-title">Market Overview</h5>
                     </div>
                     <div class="card-body text-center">
-                        <h3 class="text-primary">Sensex: 56,000</h3>
+                        <h3 class="text-primary" id="sensexValue">Loading...</h3>
                         <h5>Nifty: 16,800</h5>
                         <p class="text-muted">Market Status: <span class="text-success">Bullish</span></p>
                     </div>
@@ -55,7 +55,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Trading Session -->
@@ -88,6 +87,32 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Fetch live data using AJAX
+    function fetchLiveData() {
+        fetch('/stock-data')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Extract the latest stock value, for example, Apple (AAPL)
+                    const timeSeries = data.data;
+                    const latestData = Object.values(timeSeries)[0]; // Get the most recent entry
+                    const latestClose = latestData['4. close'];
+
+                    // Update the stock value (e.g., Sensex or Apple stock price)
+                    document.getElementById('sensexValue').textContent = `₹${latestClose}`;
+                } else {
+                    console.error('Error fetching live stock data:', data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Call the fetchLiveData function when the page is loaded
+    window.onload = function() {
+        fetchLiveData();
+    };
+
+    // Chart.js code for market trends (keep as it is)
     var ctx = document.getElementById('marketTrendChart').getContext('2d');
     var marketTrendChart = new Chart(ctx, {
         type: 'line',
