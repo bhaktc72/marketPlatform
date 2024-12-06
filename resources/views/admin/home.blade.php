@@ -88,28 +88,29 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Fetch live data using AJAX
+    // Fetch live data using AJAX
     function fetchLiveData() {
-        fetch('/stock-data')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Extract the latest stock value, for example, Apple (AAPL)
-                    const timeSeries = data.data;
-                    const latestData = Object.values(timeSeries)[0]; // Get the most recent entry
-                    const latestClose = latestData['4. close'];
+    fetch('/stock-data')
+    .then(response => response.json())
+    .then(data => {
+    if (data.status === 'success') {
+    // Extract the latest stock value, for example, Apple (AAPL)
+    const timeSeries = data.data;
+    const latestData = Object.values(timeSeries)[0]; // Get the most recent entry
+    const latestClose = latestData['4. close'];
 
-                    // Update the stock value (e.g., Sensex or Apple stock price)
-                    document.getElementById('sensexValue').textContent = `₹${latestClose}`;
-                } else {
-                    console.error('Error fetching live stock data:', data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
+    // Update the stock value (e.g., Sensex or Apple stock price)
+    document.getElementById('sensexValue').textContent = `₹${latestClose}`;
+    } else {
+    console.error('Error fetching live stock data:', data.message);
+    }
+    })
+    .catch(error => console.error('Error:', error));
     }
 
     // Call the fetchLiveData function when the page is loaded
     window.onload = function() {
-        fetchLiveData();
+    fetchLiveData();
     };
 
     // Chart.js code for market trends (keep as it is)
