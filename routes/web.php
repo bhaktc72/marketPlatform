@@ -3,12 +3,15 @@
 use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\BasketRepoController;
 use App\Http\Controllers\BondManagementController;
+use App\Http\Controllers\ForeignExchangeController;
+use App\Http\Controllers\ForwardPremiumController;
 use App\Http\Controllers\MiborOisController;
 use App\Http\Controllers\NdsCallController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\TreasureController;
 use App\Http\Controllers\TrepsController;
 use App\Http\Controllers\UserController;
+use App\Models\ForwardPremium;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +101,18 @@ Route::post('/mibor', [MiborOisController::class, 'store'])->name('mibor.store')
 Route::put('/mibor/{id}', [MiborOisController::class, 'update'])->name('mibor.update');
 Route::delete('/mibor/{id}', [MiborOisController::class, 'destroy'])->name('mibor.destroy');
 
+
+// Foreign Exchange Management
+Route::get('/foreignExchange/index', [ForeignExchangeController::class, 'index'])->name('foreignExchange.index');
+Route::post('/foreignExchange', [ForeignExchangeController::class, 'store'])->name('foreignExchange.store');
+Route::put('/foreignExchange/{id}', [ForeignExchangeController::class, 'update'])->name('foreignExchange.update');
+Route::delete('/foreignExchange/{id}', [ForeignExchangeController::class, 'destroy'])->name('foreignExchange.destroy');
+
+// Forward Premium Management
+Route::get('/forwardPremium/index', [ForwardPremiumController::class, 'index'])->name('forwardPremium.index');
+Route::post('/forwardPremium', [ForwardPremiumController::class, 'store'])->name('forwardPremium.store');
+Route::put('/forwardPremium/{id}', [ForwardPremiumController::class, 'update'])->name('forwardPremium.update');
+Route::delete('/forwardPremium/{id}', [ForwardPremiumController::class, 'destroy'])->name('forwardPremium.destroy');
 
 
 });
