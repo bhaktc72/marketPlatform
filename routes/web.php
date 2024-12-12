@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\BasketRepoController;
 use App\Http\Controllers\BondManagementController;
+use App\Http\Controllers\EquityMarketController;
 use App\Http\Controllers\ForeignExchangeController;
 use App\Http\Controllers\ForwardPremiumController;
+use App\Http\Controllers\GraphController;
 use App\Http\Controllers\MiborOisController;
 use App\Http\Controllers\NdsCallController;
 use App\Http\Controllers\PolicyController;
@@ -114,5 +116,16 @@ Route::post('/forwardPremium', [ForwardPremiumController::class, 'store'])->name
 Route::put('/forwardPremium/{id}', [ForwardPremiumController::class, 'update'])->name('forwardPremium.update');
 Route::delete('/forwardPremium/{id}', [ForwardPremiumController::class, 'destroy'])->name('forwardPremium.destroy');
 
+
+// Equity Market Management
+Route::get('/equityMarket/index', [EquityMarketController::class, 'index'])->name('equityMarket.index');
+Route::post('/equityMarket', [EquityMarketController::class, 'store'])->name('equityMarket.store');
+Route::put('/equityMarket/{id}', [EquityMarketController::class, 'update'])->name('equityMarket.update');
+Route::delete('/equityMarket/{id}', [EquityMarketController::class, 'destroy'])->name('equityMarket.destroy');
+
+// Graph Management
+Route::get('/marketGraph/index', [GraphController::class, 'index'])->name('marketGraph.index');
+Route::post('/marketGraph', [GraphController::class, 'store'])->name('marketGraph.store');
+Route::delete('/marketGraph/{id}', [GraphController::class, 'destroy'])->name('marketGraph.destroy');
 
 });

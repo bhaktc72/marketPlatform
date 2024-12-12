@@ -59,6 +59,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('mibor.index') }}">MIBOR OIS</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('marketGraph.index') }}">Market Graph</a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -72,13 +75,21 @@
             <div class="collapse" id="fxManagement">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('foreignExchange.index') }}">Exchange Rates</a>
+                        <a class="nav-link" href="{{ route('foreignExchange.index') }}" data-bs-toggle="collapse"
+                            aria-expanded="false">Exchange Rates</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('forwardPremium.index') }}">Forward Premium</a>
+                        <a class="nav-link" href="{{ route('forwardPremium.index') }}" data-bs-toggle="collapse"
+                            aria-expanded="false">Forward Premium</a>
                     </li>
                 </ul>
             </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('equityMarket.index') }}">
+                <span class="menu-title">Equity Market</span>
+                <i class="mdi mdi-chart-line menu-icon"></i>
+            </a>
         </li>
     </ul>
 </nav>
