@@ -1,5 +1,4 @@
-<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
-    style="background-color: #EAD9F1;">
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="background-color: #EAD9F1;">
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
         {{-- <a class="navbar-brand brand-logo" href="/"><img src="{{ asset('assets/images/logo.png') }}"
                 alt="logo" /></a> --}}
@@ -12,10 +11,9 @@
         </button>
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="nav-profile-text">
-                        <p class="mb-1 text-black">Hello, {{ Auth::user()->name ?? '' }}</p>
+                        <p class="mb-1 text-black">Hello, {{ Auth::user()->firstName ?? '' }}</p>
                     </div>
                 </a>
                 <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -28,8 +26,7 @@
                 </a>
             </li>
             <li class="nav-item nav-logout d-none d-lg-block">
-                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
+                <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit();">
                     <i class="mdi mdi-power"></i>
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -42,8 +39,7 @@
                 </a>
             </li>
         </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
-            data-toggle="offcanvas">
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
         </button>
     </div>

@@ -29,6 +29,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('accounts.index') }}">
+                    <span class="menu-title">Account Balance</span>
+                    <i class="mdi mdi-currency-inr menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('bonds.index') }}">
                     <span class="menu-title">Bond Management</span>
                     <i class="mdi mdi-file-document menu-icon"></i>
