@@ -20,76 +20,76 @@
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('users.index') }}">
-                <span class="menu-title">User</span>
-                <i class="mdi mdi-account-circle menu-icon"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('bonds.index') }}">
-                <span class="menu-title">Bond Management</span>
-                <i class="mdi mdi-file-document menu-icon"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#marketManagement" aria-expanded="false"
-                aria-controls="marketManagement">
-                <span class="menu-title">Debt Market Management</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-chart-line menu-icon"></i>
-            </a>
-            <div class="collapse" id="marketManagement">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('policies.index') }}">Policy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('treasure.index') }}">Treasury Bills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('ndsCalls.index') }}">NDS Calls</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('basketRepo.index') }}">Basket Repo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('treps.index') }}">Treps</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('mibor.index') }}">MIBOR OIS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('marketGraph.index') }}">Market Graph</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#fxManagement" aria-expanded="false"
-                aria-controls="fxManagement">
-                <span class="menu-title">FX Management</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-chart-line menu-icon"></i>
-            </a>
-            <div class="collapse" id="fxManagement">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('foreignExchange.index') }}" data-bs-toggle="collapse"
-                            aria-expanded="false">Exchange Rates</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('forwardPremium.index') }}" data-bs-toggle="collapse"
-                            aria-expanded="false">Forward Premium</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('equityMarket.index') }}">
-                <span class="menu-title">Equity Market</span>
-                <i class="mdi mdi-chart-line menu-icon"></i>
-            </a>
-        </li>
+
+        @role('Admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('users.index') }}">
+                    <span class="menu-title">User</span>
+                    <i class="mdi mdi-account-circle menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('bonds.index') }}">
+                    <span class="menu-title">Bond Management</span>
+                    <i class="mdi mdi-file-document menu-icon"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#marketManagement" aria-expanded="false" aria-controls="marketManagement">
+                    <span class="menu-title">Debt Market Management</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-chart-line menu-icon"></i>
+                </a>
+                <div class="collapse" id="marketManagement">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('policies.index') }}">Policy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('treasure.index') }}">Treasury Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('ndsCalls.index') }}">NDS Calls</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('basketRepo.index') }}">Basket Repo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('treps.index') }}">Treps</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('mibor.index') }}">MIBOR OIS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('marketGraph.index') }}">Market Graph</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#fxManagement" data-bs-toggle="collapse" aria-expanded="false" aria-controls="fxManagement">
+                    <span class="menu-title">FX Management</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-chart-line menu-icon"></i>
+                </a>
+                <div class="collapse" id="fxManagement">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('foreignExchange.index') }}">Exchange Rates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('forwardPremium.index') }}">Forward Premium</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('equityMarket.index') }}">
+                    <span class="menu-title">Equity Market</span>
+                    <i class="mdi mdi-chart-line menu-icon"></i>
+                </a>
+            </li>
+        @endrole
+
     </ul>
 </nav>
