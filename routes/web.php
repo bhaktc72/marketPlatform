@@ -13,6 +13,7 @@ use App\Http\Controllers\NdsCallController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\TreasureController;
 use App\Http\Controllers\TrepsController;
+use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\UserController;
 use App\Models\ForwardPremium;
 use Illuminate\Support\Facades\Artisan;
@@ -135,4 +136,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/accounts/generate', [AccountBalanceController::class, 'generate'])->name('accounts.generate');
     Route::post('/accounts/{id}/update', [AccountBalanceController::class, 'update'])->name('accounts.update');
     Route::delete('/accounts', [AccountBalanceController::class, 'deleteAll'])->name('accounts.deleteAll');
+
+
+
+
+    // user side routes
+
+    Route::get('bonds/index', [HomeController::class, 'bonds'])->name('bonds.index');
+    Route::get('bonds/gSec', [HomeController::class, 'gSec'])->name('bonds.gSec');
+
+    Route::get('/userHome', [HomeController::class, 'home'])->name('user.home');
 });

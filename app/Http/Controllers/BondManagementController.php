@@ -30,26 +30,25 @@ class BondManagementController extends Controller
         return Excel::download(new BondExport, 'bonds.xlsx');
     }
 
-   public function import(Request $request)
-{
-    try {
-        // Validate the uploaded file
-        $request->validate([
-            'bondFile' => 'required|mimes:xlsx,xls,csv|max:2048',
-        ]);
+    public function import(Request $request)
+    {
+        try {
+            // Validate the uploaded file
+            $request->validate([
+                'bondFile' => 'required|mimes:xlsx,xls,csv|max:2048',
+            ]);
 
-        // Truncate the existing bonds table before importing new data
-        Bond::truncate();
+            // Truncate the existing bonds table before importing new data
+            Bond::truncate();
 
-        // Import the bonds data from the uploaded Excel file
-        Excel::import(new BondImport, $request->file('bondFile'));
+            // Import the bonds data from the uploaded Excel file
+            Excel::import(new BondImport, $request->file('bondFile'));
 
-        // Redirect back with success message
-        return redirect()->back()->with('success', 'Bond data uploaded successfully!');
-    } catch (\Exception $e) {
-        // If something goes wrong, flash an error message
-        return redirect()->back()->with('error', 'An error occurred while uploading the file.');
+            // Redirect back with success message
+            return redirect()->back()->with('success', 'Bond data uploaded successfully!');
+        } catch (\Exception $e) {
+            // If something goes wrong, flash an error message
+            return redirect()->back()->with('error', 'An error occurred while uploading the file.');
+        }
     }
-}
-
 }
