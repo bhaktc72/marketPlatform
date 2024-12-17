@@ -142,7 +142,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // user side routes
 
-    Route::get('bonds/index', [HomeController::class, 'bonds'])->name('bonds.index');
+    Route::get('bonds/index', [HomeController::class, 'bonds'])->name('bonds.userIndex');
     Route::get('bonds/gSec', [HomeController::class, 'gSec'])->name('bonds.gSec');
 
     Route::get('/userHome', [HomeController::class, 'home'])->name('user.home');

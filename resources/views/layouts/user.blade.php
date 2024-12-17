@@ -15,7 +15,7 @@
         <div class="logo text-center fs-4 fw-bold mb-4">Trade Panel</div>
         <ul class="list-unstyled">
             <li><a href="{{ route('user.home') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Dashboard</a></li>
-            <li><a href="{{ route('bonds.index') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Bonds</a></li>
+            <li><a href="{{ route('bonds.userIndex') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Bonds</a></li>
             <li><a href="#" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Order Book</a></li>
             <li><a href="#" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">My Orders</a></li>
             <li><a href="#" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Markets</a></li>
