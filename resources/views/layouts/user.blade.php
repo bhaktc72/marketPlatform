@@ -16,9 +16,15 @@
         <ul class="list-unstyled">
             <li><a href="{{ route('user.home') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Dashboard</a></li>
             <li><a href="{{ route('bonds.userIndex') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Bonds</a></li>
-            <li><a href="#" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Order Book</a></li>
-            <li><a href="#" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">My Orders</a></li>
+            <li><a href="{{ route('bonds.orderBook') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Order Book</a></li>
+            <li><a href="{{ route('bonds.myOrders') }}" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">My Orders</a></li>
             <li><a href="#" class="text-white text-decoration-none d-block p-2 rounded-3 mb-2">Markets</a></li>
+            <li>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="btn btn-danger text-white w-100 p-2 rounded-3" type="submit">Logout</button>
+                </form>
+            </li>
         </ul>
     </div>
 
@@ -27,10 +33,19 @@
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded-3 shadow-sm mb-4">
             <div class="title fs-3 fw-bold text-dark">Dashboard</div>
-            <div class="d-flex justify-content-end">
-                <div class="user-info text-muted me-3"> <strong>UserId: </strong>{{ Auth::user()->userId }} </div>
-                <br>
-                <div class="user-info text-muted"> <strong>Account Balance: </strong>10000</div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="user-info mb-1">
+                    <span class="fw-semibold text-muted">User ID:</span>
+                    <span class="text-primary">{{ Auth::user()->userId }}</span>
+                </div>
+                <div class="user-info text-muted mb-1">
+                    <strong>Account Balance:</strong>
+                    <span class="text-success fw-bold">₹10,000</span>
+                </div>
+                {{-- <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="btn btn-danger text-white rounded-3" type="submit">Logout</button>
+                </form> --}}
             </div>
         </div>
 
@@ -38,7 +53,7 @@
         @yield('content')
 
         <!-- Footer -->
-        <div class="footer text-muted text-center mt-5">
+        <div class="footer text-muted text-center mb-3" style="bottom: 0; position: absolute; width: 80%;">
             &copy; Designed by Bhakt Chotaliya & Kevil Gandhi All rights reserved.
         </div>
     </div>

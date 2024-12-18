@@ -40,6 +40,22 @@
                     <i class="mdi mdi-file-document menu-icon"></i>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#bondManagement" aria-expanded="false" aria-controls="bondManagement">
+                    <span class="menu-title">Bond Management</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-chart-line menu-icon"></i>
+                </a>
+                <div class="collapse" id="bondManagement">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('bonds.index') }}">Policy</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#marketManagement" aria-expanded="false" aria-controls="marketManagement">
                     <span class="menu-title">Debt Market Management</span>

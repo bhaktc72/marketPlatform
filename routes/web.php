@@ -144,6 +144,20 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('bonds/index', [HomeController::class, 'bonds'])->name('bonds.userIndex');
     Route::get('bonds/gSec', [HomeController::class, 'gSec'])->name('bonds.gSec');
+    Route::get('bonds/gSecDetails', [HomeController::class, 'gSecDetails'])->name('bonds.gSecDetails');
+    Route::get('bonds/sdlDetails', [HomeController::class, 'sdlDetails'])->name('bonds.sdlDetails');
+    Route::get('bonds/govtBondsDetails', [HomeController::class, 'govtBondsDetails'])->name('bonds.govtBondsDetails');
+    Route::get('bonds/sdl', [HomeController::class, 'sdl'])->name('bonds.sdl');
+    Route::get('bonds/govtBond', [HomeController::class, 'govtBond'])->name('bonds.govtBond');
+
+    Route::get('bonds/buy', [HomeController::class, 'buy'])->name('bonds.buy');
+    Route::get('bonds/sell', [HomeController::class, 'sell'])->name('bonds.sell');
+
+    Route::get('bonds/orderBook', [HomeController::class, 'orderBook'])->name('bonds.orderBook');
+    Route::get('bonds/orderModify', [HomeController::class, 'orderModify'])->name('bonds.orderModify');
+
+    Route::get('bonds/myOrders', [HomeController::class, 'myOrders'])->name('bonds.myOrders');
+
 
     Route::get('/userHome', [HomeController::class, 'home'])->name('user.home');
 });
