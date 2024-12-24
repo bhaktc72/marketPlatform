@@ -50,7 +50,21 @@
                 <div class="collapse" id="bondManagement">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('bonds.index') }}">Policy</a>
+                            <a class="nav-link" href="{{ route('bonds.index') }}">Bonds</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse" id="bondManagement">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('centralBonds.index') }}">Central Govt Bond</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse" id="bondManagement">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('stateBonds.index') }}">State Govt Bond</a>
                         </li>
                     </ul>
                 </div>

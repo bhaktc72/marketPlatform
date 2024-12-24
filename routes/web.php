@@ -63,6 +63,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/bonds/import', [BondManagementController::class, 'import'])->name('bonds.import');
 
 
+    // Central Bonds
+    Route::get('/centralBonds', [BondManagementController::class, 'centralGovtBonds'])->name('centralBonds.index');
+    Route::post('/centralBonds/update/{id}', [BondManagementController::class, 'centralGovtBondsUpdate'])->name('centralBonds.update');
+    Route::get('/centralBonds/export', [BondManagementController::class, 'centralGovtBondsExport'])->name('centralBonds.export');
+    Route::post('/centralBonds/import', [BondManagementController::class, 'centralGovtBondsImport'])->name('centralBonds.import');
+
+    // State Bonds
+    Route::get('/stateBonds', [BondManagementController::class, 'stateGovtBonds'])->name('stateBonds.index');
+    Route::post('/stateBonds/update/{id}', [BondManagementController::class, 'stateGovtBondsUpdate'])->name('stateBonds.update');
+    Route::get('/stateBonds/export', [BondManagementController::class, 'stateGovtBondsExport'])->name('stateBonds.export');
+    Route::post('/stateBonds/import', [BondManagementController::class, 'stateGovtBondsImport'])->name('stateBonds.import');
+
+
     //market live data
     Route::get('/stock-data', [StockController::class, 'getLiveData']);
 
