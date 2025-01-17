@@ -1,8 +1,8 @@
-@extends('layouts.user')
+@extends('user.layouts.app')
 
 @section('content')
     <title>Order List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
     <style>
         .order-card {
             border: 1px solid #ddd;

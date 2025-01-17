@@ -170,7 +170,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('bonds/orderModify', [HomeController::class, 'orderModify'])->name('bonds.orderModify');
 
     Route::get('bonds/myOrders', [HomeController::class, 'myOrders'])->name('bonds.myOrders');
-
-
     Route::get('/userHome', [HomeController::class, 'home'])->name('user.home');
 });

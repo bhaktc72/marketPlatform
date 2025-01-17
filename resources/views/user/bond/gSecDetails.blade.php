@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('user.layouts.app')
 
 @section('content')
     <title>Bond Details</title>
@@ -29,7 +29,8 @@
     <div class="container mt-4">
         <div class="card shadow">
             <div class="card-header bg-gradient-primary text-white">
-                <h5 class="card-title text-center" style="color: black"><strong>Goverment Securities Bond Details</strong></h5>
+                <h5 class="card-title text-center" style="color: black"><strong>Goverment Securities Bond Details</strong>
+                </h5>
             </div>
             <div class="card-body">
                 <!-- Top Section -->

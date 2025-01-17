@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('user.layouts.app')
 
 @section('content')
     <title>Modify Order</title>
