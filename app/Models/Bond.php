@@ -11,16 +11,18 @@ class Bond extends Model
 
     // Add 'name' to the fillable property
     protected $fillable = [
-        'name',
-        'code',
+        'isin',
         'issuer',
-        'currency',
-        'maturity',
-        'face_value',
-        'coupon',
-        'frequency',
-        'day_count',
-        'price',
-        'status',
+        'coupon_rate',
+        'maturity_date',
+        'rating',
+        'segmentOfIssuer',
+        'ModelYield',
+        'modelPrice',
+        'Y15DaysYield',
+        'P15DaysPrice',
+        'finalYield',
+        'finalPrice',
+        'remarks',
     ];
 }

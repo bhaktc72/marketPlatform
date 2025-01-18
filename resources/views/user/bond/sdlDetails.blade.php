@@ -26,7 +26,7 @@
         }
     </style>
 
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
         <div class="card shadow">
             <div class="card-header bg-gradient-primary text-white">
                 <h5 class="card-title text-center" style="color: black"><strong>SDL Bond Details</strong></h5>
@@ -34,20 +34,20 @@
             <div class="card-body">
                 <!-- Top Section -->
                 <div class="row mb-3">
-                    <div class="col-md-6 fw-bold">IS4835TU84N5</div>
-                    <div class="col-md-6 text-end fw-bold">Last Traded Price - ₹ 100.40</div>
+                    <div class="col-md-6 fw-bold">{{ $stateBond->name }}</div>
+                    <div class="col-md-6 text-end fw-bold">Last Traded Price - ₹ {{ $stateBond->price ?? 'N/A' }}</div>
                 </div>
 
                 <!-- Main Content Section -->
                 <div class="row">
                     <!-- Left Side -->
                     <div class="col-md-6 border-right">
-                        <p><strong>Maturity Date:</strong> 25-11-2024</p>
-                        <p><strong>Coupon Rate:</strong> 6.07%</p>
-                        <p><strong>Face Value:</strong> 10</p>
-                        <p><strong>Issue Date:</strong> 10</p>
-                        <p><strong>Coupon Frequency:</strong> 10</p>
-                        <p><strong>Residual Maturity:</strong> 10</p>
+                        <p><strong>Maturity Date:</strong> {{ $stateBond->maturity_date }}</p>
+                        <p><strong>Coupon Rate:</strong> {{ $stateBond->coupon_rate }}%</p>
+                        <p><strong>Face Value:</strong> ₹ {{ $stateBond->face_value }}</p>
+                        <p><strong>Issue Date:</strong> {{ $stateBond->issue_date }}</p>
+                        <p><strong>Coupon Frequency:</strong> {{ $stateBond->coupon_frequency }} years</p>
+                        <p><strong>Residual Maturity:</strong> {{ $stateBond->residual_maturity }} years</p>
                     </div>
 
                     <!-- Right Side -->
@@ -75,13 +75,13 @@
                 <div class="row mt-3 text-center">
                     <div class="col-md-6">
                         <p><strong>Bid Price</strong></p>
-                        <p>₹ 100.40</p>
-                        <p><strong>Qty</strong>: 50</p>
+                        <p>₹ {{ $stateBond->bid_price ?? 'N/A' }}</p>
+                        <p><strong>Qty</strong>: {{ $stateBond->bid_qty ?? 'N/A' }}</p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Ask Price</strong></p>
-                        <p>₹ 101.60</p>
-                        <p><strong>Qty</strong>: 50</p>
+                        <p>₹ {{ $stateBond->ask_price ?? 'N/A' }}</p>
+                        <p><strong>Qty</strong>: {{ $stateBond->ask_qty ?? 'N/A' }}</p>
                     </div>
                 </div>
             </div>

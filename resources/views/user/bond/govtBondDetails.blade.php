@@ -26,28 +26,28 @@
         }
     </style>
 
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
         <div class="card shadow">
             <div class="card-header bg-gradient-primary text-white">
-                <h5 class="card-title text-center" style="color: black"><strong>Goverment Sector Bond Details</strong></h5>
+                <h5 class="card-title text-center" style="color: black"><strong>Government Bond Details</strong></h5>
             </div>
             <div class="card-body">
                 <!-- Top Section -->
                 <div class="row mb-3">
-                    <div class="col-md-6 fw-bold">IS4835TU84N5</div>
-                    <div class="col-md-6 text-end fw-bold">Last Traded Price - ₹ 100.40</div>
+                    <div class="col-md-6 fw-bold">{{ $govtBond->name }}</div>
+                    <div class="col-md-6 text-end fw-bold">Last Traded Price - ₹ {{ $govtBond->price ?? 'N/A' }}</div>
                 </div>
 
                 <!-- Main Content Section -->
                 <div class="row">
                     <!-- Left Side -->
                     <div class="col-md-6 border-right">
-                        <p><strong>Maturity Date:</strong> 25-11-2024</p>
-                        <p><strong>Coupon Rate:</strong> 6.07%</p>
-                        <p><strong>Face Value:</strong> 10</p>
-                        <p><strong>Issue Date:</strong> 10</p>
-                        <p><strong>Coupon Frequency:</strong> 10</p>
-                        <p><strong>Residual Maturity:</strong> 10</p>
+                        <p><strong>Maturity Date:</strong> {{ $govtBond->maturity_date }}</p>
+                        <p><strong>Coupon Rate:</strong> {{ $govtBond->coupon_rate }}%</p>
+                        <p><strong>Face Value:</strong> ₹ {{ $govtBond->face_value }}</p>
+                        <p><strong>Issue Date:</strong> {{ $govtBond->issue_date }}</p>
+                        <p><strong>Coupon Frequency:</strong> {{ $govtBond->coupon_frequency }} years</p>
+                        <p><strong>Residual Maturity:</strong> {{ $govtBond->residual_maturity }} years</p>
                     </div>
 
                     <!-- Right Side -->
@@ -75,13 +75,13 @@
                 <div class="row mt-3 text-center">
                     <div class="col-md-6">
                         <p><strong>Bid Price</strong></p>
-                        <p>₹ 100.40</p>
-                        <p><strong>Qty</strong>: 50</p>
+                        <p>₹ {{ $govtBond->bid_price ?? 'N/A' }}</p>
+                        <p><strong>Qty</strong>: {{ $govtBond->bid_qty ?? 'N/A' }}</p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Ask Price</strong></p>
-                        <p>₹ 101.60</p>
-                        <p><strong>Qty</strong>: 50</p>
+                        <p>₹ {{ $govtBond->ask_price ?? 'N/A' }}</p>
+                        <p><strong>Qty</strong>: {{ $govtBond->ask_qty ?? 'N/A' }}</p>
                     </div>
                 </div>
             </div>

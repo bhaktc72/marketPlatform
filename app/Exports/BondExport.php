@@ -14,18 +14,19 @@ class BondExport implements FromCollection, WithHeadings
     public function collection()
     {
         return Bond::select(
-            'id',
-            'name',
-            'code',
+            'isin',
             'issuer',
-            'currency',
-            'maturity',
-            'face_value',
-            'coupon',
-            'frequency',
-            'day_count',
-            'price',
-            'status'
+            'coupon_rate',
+            'maturity_date',
+            'rating',
+            'segmentOfIssuer',
+            'ModelYield',
+            'modelPrice',
+            '15DaysYield',
+            '15DaysPrice',
+            'finalYield',
+            'finalPrice',
+            'remarks'
         )->get();
     }
 
@@ -37,18 +38,19 @@ class BondExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'ID',
-            'Name',
-            'Code',
+            'ISIN',
             'Issuer',
-            'Currency',
-            'Maturity',
-            'Face Value',
-            'Coupon',
-            'Frequency',
-            'Day Count',
-            'Price',
-            'Status',
+            'Coupon Rate',
+            'Maturity Date',
+            'Rating',
+            'Segment of Issuer',
+            'Model Yield',
+            'Model Price',
+            '15 Days Yield',
+            '15 Days Price',
+            'Final Yield',
+            'Final Price',
+            'Remarks'
         ];
     }
 }

@@ -20,10 +20,11 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('admin.home');
-})->name('home');
 
+
+Route::get('/', function () {
+    return view('auth.login');
+})->name('login');
 
 Auth::routes();
 
@@ -45,6 +46,9 @@ Route::group(['middleware' => ['auth']], function () {
         return redirect()->back();
     });
 
+    Route::get('/home', function () {
+        return view('admin.home');
+    })->name('home');
 
     //users
     Route::get('users/index', [UserController::class, 'index'])->name('users.index');
@@ -145,10 +149,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     //account Balance
-    Route::get('/accounts', [AccountBalanceController::class, 'index'])->name('accounts.index');
-    Route::post('/accounts/generate', [AccountBalanceController::class, 'generate'])->name('accounts.generate');
-    Route::post('/accounts/{id}/update', [AccountBalanceController::class, 'update'])->name('accounts.update');
-    Route::delete('/accounts', [AccountBalanceController::class, 'deleteAll'])->name('accounts.deleteAll');
+    Route::get('accounts/index', [AccountBalanceController::class, 'index'])->name('accounts.index');
+    Route::post('accounts/generate', [AccountBalanceController::class, 'generate'])->name('accounts.generate');
+    Route::post('accounts/{id}/update', [AccountBalanceController::class, 'update'])->name('accounts.update');
+    Route::delete('accounts/deleteAll', [AccountBalanceController::class, 'deleteAll'])->name('accounts.deleteAll');
 
 
 
@@ -157,9 +161,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('bonds/index', [HomeController::class, 'bonds'])->name('bonds.userIndex');
     Route::get('bonds/gSec', [HomeController::class, 'gSec'])->name('bonds.gSec');
-    Route::get('bonds/gSecDetails', [HomeController::class, 'gSecDetails'])->name('bonds.gSecDetails');
-    Route::get('bonds/sdlDetails', [HomeController::class, 'sdlDetails'])->name('bonds.sdlDetails');
-    Route::get('bonds/govtBondsDetails', [HomeController::class, 'govtBondsDetails'])->name('bonds.govtBondsDetails');
+    // Route::get('bonds/gSecDetails', [HomeController::class, 'gSecDetails'])->name('bonds.gSecDetails');
+    Route::get('bonds/details/{id}', [HomeController::class, 'gSecDetails'])->name('bonds.gSecDetails');
+    // Route::get('bonds/sdlDetails', [HomeController::class, 'sdlDetails'])->name('bonds.sdlDetails');
+    Route::get('bonds/sdl/{id}', [HomeController::class, 'sdlDetails'])->name('bonds.sdlDetails');
+    // Route::get('bonds/govtBondsDetails', [HomeController::class, 'govtBondsDetails'])->name('bonds.govtBondsDetails');
+    Route::get('bonds/govt/{id}', [HomeController::class, 'govtBondDetails'])->name('bonds.govtBondDetails');
     Route::get('bonds/sdl', [HomeController::class, 'sdl'])->name('bonds.sdl');
     Route::get('bonds/govtBond', [HomeController::class, 'govtBond'])->name('bonds.govtBond');
 

@@ -53,6 +53,7 @@ class BondManagementController extends Controller
             // Redirect back with success message
             return redirect()->back()->with('success', 'Bond data uploaded successfully!');
         } catch (\Exception $e) {
+            throw $e;
             // If something goes wrong, flash an error message
             return redirect()->back()->with('error', 'An error occurred while uploading the file.');
         }

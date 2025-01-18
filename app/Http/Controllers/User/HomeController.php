@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bond;
+use App\Models\CentralGovtBonds;
+use App\Models\StateGovtBonds;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,33 +22,48 @@ class HomeController extends Controller
 
     public function gSec()
     {
-        return view('user.bond.gSec');
+        $bonds = Bond::all();
+        return view('user.bond.gSec', compact('bonds'));
     }
 
-    public function gSecDetails()
+    public function gSecDetails($id)
     {
-        return view('user.bond.gSecDetails');
+        // Fetch the bond by its ID
+        $bond = Bond::findOrFail($id);
+
+        return view('user.bond.gSecDetails', compact('bond'));
     }
+
 
     public function sdl()
     {
-        return view('user.bond.sdl');
+        $stateBond = StateGovtBonds::all();
+        return view('user.bond.sdl', compact('stateBond'));
     }
 
-    public function sdlDetails()
+    public function sdlDetails($id)
     {
-        return view('user.bond.sdlDetails');
+        // Fetch the state bond by its ID
+        $stateBond = StateGovtBonds::findOrFail($id);
+
+        return view('user.bond.sdlDetails', compact('stateBond'));
     }
+
 
     public function govtBond()
     {
-        return view('user.bond.govtBond');
+        $govtBonds = CentralGovtBonds::all();
+        return view('user.bond.govtBond', compact('govtBonds'));
     }
 
-    public function govtBondDetails()
+    public function govtBondDetails($id)
     {
-        return view('user.bond.govtBondDetails');
+        // Fetch the government bond by its ID
+        $govtBond = CentralGovtBonds::findOrFail($id);
+
+        return view('user.bond.govtBondDetails', compact('govtBond'));
     }
+
 
     public function buy()
     {

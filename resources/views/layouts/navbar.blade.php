@@ -19,7 +19,7 @@
                 <i class="mdi mdi-home menu-icon"></i>
             </a>
         </li>
-
+        
         @role('Admin')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('users.index') }}">
@@ -41,8 +41,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#bondManagement" aria-expanded="false"
-                    aria-controls="bondManagement">
+                <a class="nav-link" data-bs-toggle="collapse" href="#bondManagement" aria-expanded="false" aria-controls="bondManagement">
                     <span class="menu-title">Bond Management</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-chart-line menu-icon"></i>
@@ -71,8 +70,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#marketManagement" aria-expanded="false"
-                    aria-controls="marketManagement">
+                <a class="nav-link" data-bs-toggle="collapse" href="#marketManagement" aria-expanded="false" aria-controls="marketManagement">
                     <span class="menu-title">Debt Market Management</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-chart-line menu-icon"></i>
@@ -104,8 +102,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#fxManagement" data-bs-toggle="collapse" aria-expanded="false"
-                    aria-controls="fxManagement">
+                <a class="nav-link" href="#fxManagement" data-bs-toggle="collapse" aria-expanded="false" aria-controls="fxManagement">
                     <span class="menu-title">FX Management</span>
                     <i class="menu-arrow"></i>
                     <i class="mdi mdi-chart-line menu-icon"></i>
