@@ -22,8 +22,8 @@ class BondExport implements FromCollection, WithHeadings
             'segmentOfIssuer',
             'ModelYield',
             'modelPrice',
-            '15DaysYield',
-            '15DaysPrice',
+            'Y15DaysYield',
+            'P15DaysPrice',
             'finalYield',
             'finalPrice',
             'remarks'

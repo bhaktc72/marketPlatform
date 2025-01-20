@@ -61,7 +61,7 @@ class UserController extends Controller
         $user->password = $input['password'];
         $user->status = 'Active';
         $user->save();
-        // $user->assignRole('Student');
+        $user->assignRole('User');
 
         return redirect()->route('users.index')
             ->with('success', 'User created successfully');
@@ -117,20 +117,20 @@ class UserController extends Controller
 
 
     public function updateInline(Request $request, $id)
-{
-    $user = User::findOrFail($id);
-    $field = $request->input('field');
-    $value = $request->input('value');
+    {
+        $user = User::findOrFail($id);
+        $field = $request->input('field');
+        $value = $request->input('value');
 
-    if (in_array($field, ['firstName', 'lastName'])) {
-        $user->$field = $value;
-        $user->save();
+        if (in_array($field, ['firstName', 'lastName'])) {
+            $user->$field = $value;
+            $user->save();
 
-        return response()->json(['success' => true]);
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Invalid field.']);
     }
-
-    return response()->json(['success' => false, 'message' => 'Invalid field.']);
-}
 
 
 

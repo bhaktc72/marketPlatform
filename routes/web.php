@@ -22,14 +22,17 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('auth.login');
-})->name('login');
+// Route::get('/', function () {
+//     return view('auth.login');
+// })->name('login');
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
 
+    Route::get('/', function () {
+        return view('admin.home');
+    })->name('home');
 
     Route::get('view', function () {
         Artisan::call('view:clear');
@@ -46,9 +49,9 @@ Route::group(['middleware' => ['auth']], function () {
         return redirect()->back();
     });
 
-    Route::get('/home', function () {
-        return view('admin.home');
-    })->name('home');
+    // Route::get('/home', function () {
+    //     return view('admin.home');
+    // })->name('home');
 
     //users
     Route::get('users/index', [UserController::class, 'index'])->name('users.index');
