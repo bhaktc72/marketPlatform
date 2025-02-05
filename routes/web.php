@@ -11,6 +11,7 @@ use App\Http\Controllers\GraphController;
 use App\Http\Controllers\MiborOisController;
 use App\Http\Controllers\NdsCallController;
 use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\TradeController;
 use App\Http\Controllers\TreasureController;
 use App\Http\Controllers\TrepsController;
 use App\Http\Controllers\User\HomeController;
@@ -181,4 +182,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('bonds/myOrders', [HomeController::class, 'myOrders'])->name('bonds.myOrders');
     Route::get('/userHome', [HomeController::class, 'home'])->name('user.home');
+
+    Route::post('/execute-trade', [TradeController::class, 'executeTrade'])->name('execute.trade');
 });
