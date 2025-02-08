@@ -23,11 +23,11 @@ class TradeController extends Controller
     public function executeTrade(Request $request)
     {
         $request->validate([
-            'bond_id' => 'required',
-            'bond_type' => 'required|in:state,central,security',
-            'trade_type' => 'required|in:buy,sell',
-            'trade_price' => 'required|numeric|min:1',
-            'trade_quantity' => 'required|integer|min:1',
+            // 'bond_id' => 'required',
+            // 'bond_type' => 'required|in:state,central,security',
+            // 'trade_type' => 'required|in:buy,sell',
+            // 'trade_price' => 'required|numeric|min:1',
+            // 'trade_quantity' => 'required|integer|min:1',
         ]);
 
         $bondType = $request->bond_type;
@@ -37,7 +37,7 @@ class TradeController extends Controller
         $tradeType = $request->trade_type;
         $totalCost = $price * $quantity;
 
-        $userBalance = AccountBalance::where('user_id', auth()->user()->id)->first();
+        $userBalance = AccountBalance::where('userId', Auth::user()->id)->first();
 
         if (!$userBalance) {
             return response()->json(['message' => 'User balance not found!'], 400);
@@ -66,7 +66,7 @@ class TradeController extends Controller
             }
 
             if ($tradeType == "buy") {
-                if ($userBalance->balance < $totalCost) {
+                if ($userBalance->amount < $totalCost) {
                     return response()->json(['message' => 'Insufficient balance!'], 400);
                 }
 
@@ -79,12 +79,12 @@ class TradeController extends Controller
                     $executedQty = min($quantity, $match->quantity);
                     $executedCost = $executedQty * $match->price;
 
-                    $userBalance->balance -= $executedCost;
+                    $userBalance->amount -= $executedCost;
                     $userBalance->save();
 
-                    $sellerBalance = AccountBalance::where('user_id', $match->user_id)->first();
+                    $sellerBalance = AccountBalance::where('userId', $match->user_id)->first();
                     if ($sellerBalance) {
-                        $sellerBalance->balance += $executedCost;
+                        $sellerBalance->amount += $executedCost;
                         $sellerBalance->save();
                     }
 
@@ -119,12 +119,12 @@ class TradeController extends Controller
                     $executedQty = min($quantity, $match->quantity);
                     $executedCost = $executedQty * $match->price;
 
-                    $userBalance->balance += $executedCost;
+                    $userBalance->amount += $executedCost;
                     $userBalance->save();
 
-                    $buyerBalance = AccountBalance::where('user_id', $match->user_id)->first();
+                    $buyerBalance = AccountBalance::where('userId', $match->user_id)->first();
                     if ($buyerBalance) {
-                        $buyerBalance->balance -= $executedCost;
+                        $buyerBalance->amount -= $executedCost;
                         $buyerBalance->save();
                     }
 

@@ -75,8 +75,8 @@
                 <div class="row mt-3 text-center">
                     <div class="col-md-6">
                         <p><strong>Bid Price</strong></p>
-                        <p>₹ {{ $stateBond->bid_price ?? 'N/A' }}</p>
-                        <p><strong>Qty</strong>: {{ $stateBond->bid_qty ?? 'N/A' }}</p>
+                        <p>₹ {{ $stateBuy->price ?? 'N/A' }}</p>
+                        <p><strong>Qty</strong>: {{ $stateBuy->quantity ?? 'N/A' }}</p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Ask Price</strong></p>
@@ -105,6 +105,9 @@
                             <label class="form-label">Bond Name</label>
                             <input type="text" class="form-control" id="bond_name" name="bond_name" value="{{ $stateBond->isin }}" readonly>
                         </div>
+
+                        <input type="hidden" class="form-control" id="bond_type" name="bond_type" value="state" readonly>
+
 
                         <div class="mb-3">
                             <label class="form-label">Price (₹)</label>

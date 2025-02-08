@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Bond;
 use App\Models\CentralGovtBonds;
+use App\Models\StateBondBuyOrder;
+use App\Models\StateBondSellOrder;
 use App\Models\StateGovtBonds;
 use Illuminate\Http\Request;
 
@@ -45,8 +47,10 @@ class HomeController extends Controller
     {
         // Fetch the state bond by its ID
         $stateBond = StateGovtBonds::findOrFail($id);
+        $stateBuy = StateBondBuyOrder::where('bond_id', $id)->get();
+        $stateSell = StateBondSellOrder::where('bond_id', $id)->get();
 
-        return view('user.bond.sdlDetails', compact('stateBond'));
+        return view('user.bond.sdlDetails', compact('stateBond', 'stateBuy', 'stateSell'));
     }
 
 
