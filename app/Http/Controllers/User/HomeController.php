@@ -4,11 +4,16 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bond;
+use App\Models\BondBuyOrder;
+use App\Models\BondSellOrder;
+use App\Models\CentralBondBuyOrder;
+use App\Models\CentralBondSellOrder;
 use App\Models\CentralGovtBonds;
 use App\Models\StateBondBuyOrder;
 use App\Models\StateBondSellOrder;
 use App\Models\StateGovtBonds;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -80,7 +85,16 @@ class HomeController extends Controller
 
     public function orderBook()
     {
-        return view('user.bond.orderBook');
+        $userId = Auth::id();
+
+        $buyOrders = BondBuyOrder::where('user_id', $userId)->get();
+        $stateBuyOrders = StateBondBuyOrder::where('user_id', $userId)->get();
+        $centralBuyOrders = CentralBondBuyOrder::where('user_id', $userId)->get();
+        $sellOrders = BondSellOrder::where('user_id', $userId)->get();
+        $stateSellOrders = StateBondSellOrder::where('user_id', $userId)->get();
+        $centralSellOrders = CentralBondSellOrder::where('user_id', $userId)->get();
+
+        return view('user.bond.orderBook', compact('buyOrders', 'sellOrders', 'stateBuyOrders', 'stateSellOrders', 'centralBuyOrders', 'centralSellOrders'));
     }
     public function orderModify()
     {
@@ -89,6 +103,77 @@ class HomeController extends Controller
 
     public function myOrders()
     {
-        return view('user.bond.myOrders');
+        $userId = Auth::id();
+
+        $buyOrders = BondBuyOrder::where('user_id', $userId)->get();
+        $stateBuyOrders = StateBondBuyOrder::where('user_id', $userId)->get();
+        $centralBuyOrders = CentralBondBuyOrder::where('user_id', $userId)->get();
+        $sellOrders = BondSellOrder::where('user_id', $userId)->get();
+        $stateSellOrders = StateBondSellOrder::where('user_id', $userId)->get();
+        $centralSellOrders = CentralBondSellOrder::where('user_id', $userId)->get();
+
+        return view('user.bond.myOrders', compact('buyOrders', 'sellOrders', 'stateBuyOrders', 'stateSellOrders', 'centralBuyOrders', 'centralSellOrders'));
+    }
+
+    public function modifyOrder(Request $request, $type, $bondType, $id)
+    {
+        $request->validate([
+            'price' => 'required|numeric|min:1',
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Determine the correct model for buy or sell order
+        $orderClass = $this->getOrderClass($type, 'buy');
+        $order = $orderClass::where('id', $id)->where('user_id', Auth::id())->first();
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found!'], 404);
+        }
+
+        // Update the order
+        $order->price = $request->price;
+        $order->quantity = $request->quantity;
+        $order->save();
+
+        return response()->json(['message' => 'Order modified successfully!']);
+    }
+
+    public function cancelOrder($type, $bondType, $id)
+    {
+        // Determine the correct model for buy or sell order
+        $orderClass = $this->getOrderClass($type, 'sell');
+        $order = $orderClass::where('id', $id)->where('user_id', Auth::id())->first();
+
+        if (!$order) {
+            return response()->json(['message' => 'Order not found!'], 404);
+        }
+
+        // Delete the order
+        $order->delete();
+
+        return response()->json(['message' => 'Order canceled successfully!']);
+    }
+
+
+    private function getOrderClass($type, $action)
+    {
+        $tableMapping = [
+            'buy' => [
+                'generic' => BondBuyOrder::class,
+                'state' => StateBondBuyOrder::class,
+                'central' => CentralBondBuyOrder::class,
+            ],
+            'sell' => [
+                'generic' => BondSellOrder::class,
+                'state' => StateBondSellOrder::class,
+                'central' => CentralBondSellOrder::class,
+            ]
+        ];
+
+        if (!array_key_exists($type, $tableMapping[$action])) {
+            abort(404, 'Invalid bond type.');
+        }
+
+        return $tableMapping[$action][$type];
     }
 }

@@ -75,13 +75,13 @@
                 <div class="row mt-3 text-center">
                     <div class="col-md-6">
                         <p><strong>Bid Price</strong></p>
-                        <p>₹ {{ $stateBuy->price ?? 'N/A' }}</p>
-                        <p><strong>Qty</strong>: {{ $stateBuy->quantity ?? 'N/A' }}</p>
+                        {{-- <p>₹ {{ $stateBuy->buy_price ?? 'N/A' }}</p> --}}
+                        {{-- <p><strong>Qty</strong>: {{ $stateBuy->quantity ?? 'N/A' }}</p> --}}
                     </div>
                     <div class="col-md-6">
                         <p><strong>Ask Price</strong></p>
-                        <p>₹ {{ $stateBond->ask_price ?? 'N/A' }}</p>
-                        <p><strong>Qty</strong>: {{ $stateBond->ask_qty ?? 'N/A' }}</p>
+                        {{-- <p>₹ {{ $stateBond->ask_price ?? 'N/A' }}</p> --}}
+                        {{-- <p><strong>Qty</strong>: {{ $stateBond->ask_qty ?? 'N/A' }}</p> --}}
                     </div>
                 </div>
             </div>
@@ -108,7 +108,6 @@
 
                         <input type="hidden" class="form-control" id="bond_type" name="bond_type" value="state" readonly>
 
-
                         <div class="mb-3">
                             <label class="form-label">Price (₹)</label>
                             <input type="number" class="form-control" id="trade_price" name="trade_price" required>
@@ -119,12 +118,19 @@
                             <input type="number" class="form-control" id="trade_quantity" name="trade_quantity" required>
                         </div>
 
+                        <!-- New Total Section -->
+                        <div class="mb-3">
+                            <label class="form-label">Total (₹)</label>
+                            <input type="text" class="form-control" id="trade_total" readonly>
+                        </div>
+
                         <button type="submit" class="btn btn-primary w-100">Submit Order</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -143,6 +149,23 @@
                 });
             }
 
+            let tradePriceInput = document.getElementById("trade_price");
+            let tradeQuantityInput = document.getElementById("trade_quantity");
+            let tradeTotalInput = document.getElementById("trade_total");
+
+            function updateTotal() {
+                let price = parseFloat(tradePriceInput.value) || 0;
+                let quantity = parseInt(tradeQuantityInput.value) || 0;
+                let total = price * quantity;
+                tradeTotalInput.value = total.toFixed(2); // Show two decimal places
+            }
+
+            // Attach event listeners to the Price and Quantity fields
+            if (tradePriceInput && tradeQuantityInput) {
+                tradePriceInput.addEventListener("input", updateTotal);
+                tradeQuantityInput.addEventListener("input", updateTotal);
+            }
+
             let tradeForm = document.getElementById("tradeForm");
             if (tradeForm) {
                 tradeForm.addEventListener("submit", function(event) {
@@ -151,7 +174,7 @@
 
                     let formData = new FormData(this);
                     let jsonObject = {};
-                    formData.forEach((value, key) => jsonObject[key] = value);
+                    formData.forEach((value, key) => (jsonObject[key] = value));
 
                     console.log("Form data:", jsonObject);
 
@@ -163,16 +186,16 @@
                             },
                             body: JSON.stringify(jsonObject)
                         })
-                        .then(response => {
+                        .then((response) => {
                             console.log("Response received");
                             return response.json();
                         })
-                        .then(data => {
+                        .then((data) => {
                             console.log("Response data:", data);
                             alert(data.message);
                             location.reload();
                         })
-                        .catch(error => {
+                        .catch((error) => {
                             console.error("Error:", error);
                             alert("An error occurred. Please check the console.");
                         });
@@ -180,6 +203,7 @@
             }
         });
     </script>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

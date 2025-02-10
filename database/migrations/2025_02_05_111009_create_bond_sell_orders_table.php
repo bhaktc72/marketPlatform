@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('bond_id')->constrained('bonds');
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
+            $table->string('total_cost');
             $table->timestamps();
         });
     }

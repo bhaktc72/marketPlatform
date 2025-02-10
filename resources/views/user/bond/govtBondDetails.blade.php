@@ -64,10 +64,10 @@
                 <!-- Buttons Section -->
                 <div class="row mt-3">
                     <div class="col-md-6 text-center">
-                        <button class="btn buy-btn w-50">Buy</button>
+                        <button class="btn buy-btn w-50" data-bs-toggle="modal" data-bs-target="#tradeModal" data-type="buy">Buy</button>
                     </div>
                     <div class="col-md-6 text-center">
-                        <button class="btn sell-btn w-50">Sell</button>
+                        <button class="btn sell-btn w-50" data-bs-toggle="modal" data-bs-target="#tradeModal" data-type="sell">Sell</button>
                     </div>
                 </div>
 
@@ -87,6 +87,99 @@
             </div>
         </div>
     </div>
+
+    <!-- Buy/Sell Modal -->
+    <div class="modal fade" id="tradeModal" tabindex="-1" aria-labelledby="tradeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tradeModalLabel">Trade Bond</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tradeForm">
+                        <input type="hidden" id="bond_id" name="bond_id" value="{{ $govtBond->id }}">
+                        <input type="hidden" id="trade_type" name="trade_type">
+
+                        <div class="mb-3">
+                            <label class="form-label">Bond Name</label>
+                            <input type="text" class="form-control" id="bond_name" name="bond_name" value="{{ $govtBond->isin }}" readonly>
+                        </div>
+
+                        <input type="hidden" class="form-control" id="bond_type" name="bond_type" value="central" readonly>
+
+                        <div class="mb-3">
+                            <label class="form-label">Price (₹)</label>
+                            <input type="number" class="form-control" id="trade_price" name="trade_price" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="trade_quantity" name="trade_quantity" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Submit Order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("DOM fully loaded and parsed");
+
+            let tradeModal = document.getElementById("tradeModal");
+
+            if (tradeModal) {
+                tradeModal.addEventListener("show.bs.modal", function(event) {
+                    console.log("Modal show event triggered");
+                    let button = event.relatedTarget;
+                    let tradeType = button.getAttribute("data-type");
+
+                    document.getElementById("trade_type").value = tradeType;
+                    document.getElementById("tradeModalLabel").textContent = tradeType === "buy" ? "Buy Bond" : "Sell Bond";
+                });
+            }
+
+            let tradeForm = document.getElementById("tradeForm");
+            if (tradeForm) {
+                tradeForm.addEventListener("submit", function(event) {
+                    console.log("Form submit event triggered");
+                    event.preventDefault();
+
+                    let formData = new FormData(this);
+                    let jsonObject = {};
+                    formData.forEach((value, key) => jsonObject[key] = value);
+
+                    console.log("Form data:", jsonObject);
+
+                    fetch("{{ route('execute.trade') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify(jsonObject)
+                        })
+                        .then(response => {
+                            console.log("Response received");
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log("Response data:", data);
+                            alert(data.message);
+                            location.reload();
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("An error occurred. Please check the console.");
+                        });
+                });
+            }
+        });
+    </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>

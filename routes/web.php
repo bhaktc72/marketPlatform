@@ -184,4 +184,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/userHome', [HomeController::class, 'home'])->name('user.home');
 
     Route::post('/execute-trade', [TradeController::class, 'executeTrade'])->name('execute.trade');
+
+    Route::post('/orders/modify/{type}/{bondType}/{id}', [HomeController::class, 'modifyOrder'])->name('orders.modify');
+    Route::post('/orders/cancel/{type}/{bondType}/{id}', [HomeController::class, 'cancelOrder'])->name('orders.cancel');
 });
