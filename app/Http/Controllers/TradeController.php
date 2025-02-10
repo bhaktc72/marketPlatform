@@ -607,6 +607,7 @@ class TradeController extends Controller
             return response()->json(['message' => 'Trade executed successfully!']);
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error("Trade execution error: " . $e->getMessage());
             return response()->json(['message' => 'Trade execution failed!'], 500);
         }
     }

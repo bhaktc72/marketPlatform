@@ -158,6 +158,27 @@
             </div>
         </div>
 
+        <div class="order-section">
+            <button class="collapsible">State Sell Orders</button>
+            <div class="content">
+                @forelse ($stateSellOrders as $order)
+                    <div class="order-card">
+                        <div class="order-info">
+                            <span><strong>Bond ID:</strong> {{ $order->bond_id }}</span>
+                            <span><strong>Price:</strong> ₹ {{ $order->price }}</span>
+                            <span><strong>Qty:</strong> {{ $order->quantity }}</span>
+                        </div>
+                        <div class="order-info">
+                            <span><strong>Time:</strong> {{ $order->created_at->format('h:i A') }}</span>
+                            <span><span class="badge badge-status badge-success">{{ $order->status }}</span></span>
+                        </div>
+                    </div>
+                @empty
+                    <p>No State Sell Orders available.</p>
+                @endforelse
+            </div>
+        </div>
+
         <!-- Add more collapsible sections for centralBuyOrders, stateSellOrders, centralSellOrders -->
     </div>
 

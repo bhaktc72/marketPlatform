@@ -22,7 +22,7 @@
                             <tbody>
                                 @foreach ($bonds as $bond)
                                     <tr>
-                                        <td>{{ $bond->name }}</td>
+                                        <td>{{ $bond->isin ?? '' }}</td>
                                         <td>{{ $bond->price ?? 'N/A' }}</td>
                                         <td>
                                             <a href="{{ route('bonds.gSecDetails', $bond->id) }}" class="btn btn-primary">View</a>

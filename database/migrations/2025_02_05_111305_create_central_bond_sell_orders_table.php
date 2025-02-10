@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('quantity');
             $table->string('total_cost');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
