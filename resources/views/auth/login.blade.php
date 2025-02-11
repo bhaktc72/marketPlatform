@@ -239,10 +239,13 @@
 
                                 <!-- Email Field -->
                                 <div class="inputBox">
-                                    <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    {{-- <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     <span>Email Address</span>
+                                    <i></i> --}}
+                                    <input id="userId" type="text" class="@error('userId') is-invalid @enderror" name="userId" value="{{ old('userId') }}" required autocomplete="email" autofocus>
+                                    <span>UserId</span>
                                     <i></i>
-                                    @error('email')
+                                    @error('userId')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
