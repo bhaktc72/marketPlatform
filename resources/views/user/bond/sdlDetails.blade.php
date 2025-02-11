@@ -76,8 +76,9 @@
                     <div class="col-md-6">
                         <p><strong>Buy</strong></p>
                         @forelse ($stateBuy as $buy)
-                            <p>₹ {{ $buy->price ?? '' }}</p>
-                            <p><strong>Qty</strong>: {{ $buy->quantity ?? '' }}</p>
+                            <p><strong>₹</strong> {{ $buy->price ?? '' }}
+                                <strong>Qty</strong>: {{ $buy->quantity ?? '' }}
+                            </p>
                         @empty
                             <p>N/A</p>
                         @endforelse
@@ -85,14 +86,15 @@
                     <div class="col-md-6">
                         <p><strong>Sell</strong></p>
                         @forelse ($stateSell as $sell)
-                            <p>₹ {{ $sell->price ?? '' }}</p>
-                            <p><strong>Qty</strong>: {{ $sell->quantity ?? '' }}</p>
+                            <p><strong>₹</strong> {{ $sell->price ?? '' }}
+                                <strong>Qty</strong>: {{ $sell->quantity ?? '' }}
+                            </p>
                         @empty
                             <p>N/A</p>
                         @endforelse
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

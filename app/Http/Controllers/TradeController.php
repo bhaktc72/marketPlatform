@@ -471,6 +471,147 @@ class TradeController extends Controller
     // }
 
 
+    // public function executeTrade(Request $request)
+    // {
+    //     $request->validate([
+    //         'bond_id' => 'required',
+    //         'bond_type' => 'required|in:state,central,security',
+    //         'trade_type' => 'required|in:buy,sell',
+    //         'trade_price' => 'required|numeric|min:1',
+    //         'trade_quantity' => 'required|integer|min:1',
+    //     ]);
+
+    //     $bondType = $request->bond_type;
+    //     $bondId = $request->bond_id;
+    //     $price = $request->trade_price;
+    //     $quantity = $request->trade_quantity;
+    //     $tradeType = $request->trade_type;
+    //     $totalCost = $price * $quantity;
+
+    //     $userBalance = AccountBalance::where('userId', Auth::user()->id)->first();
+    //     if (!$userBalance) {
+    //         return response()->json(['message' => 'User balance not found!'], 400);
+    //     }
+
+    //     DB::beginTransaction();
+    //     try {
+    //         $buyTable = null;
+    //         $sellTable = null;
+
+    //         if ($bondType == "state") {
+    //             $buyTable = StateBondBuyOrder::class;
+    //             $sellTable = StateBondSellOrder::class;
+    //         } elseif ($bondType == "central") {
+    //             $buyTable = CentralBondBuyOrder::class;
+    //             $sellTable = CentralBondSellOrder::class;
+    //         } elseif ($bondType == "security") {
+    //             $buyTable = BondBuyOrder::class;
+    //             $sellTable = BondSellOrder::class;
+    //         } else {
+    //             return response()->json(['message' => 'Invalid bond type!'], 400);
+    //         }
+
+    //         if ($tradeType === "buy") {
+    //             $match = $sellTable::where('bond_id', $bondId)
+    //                 ->where('price', '<=', $price)
+    //                 ->orderBy('price', 'asc')
+    //                 ->first();
+
+    //             if ($match) {
+    //                 $executedQty = min($quantity, $match->quantity);
+    //                 $executedCost = $executedQty * $match->price;
+
+    //                 if ($userBalance->amount < $executedCost) {
+    //                     return response()->json(['message' => 'Insufficient balance!'], 400);
+    //                 }
+
+    //                 $userBalance->amount -= $executedCost;
+    //                 $userBalance->save();
+
+    //                 $sellerBalance = AccountBalance::where('userId', $match->user_id)->first();
+    //                 if ($sellerBalance) {
+    //                     $sellerBalance->amount += $executedCost;
+    //                     $sellerBalance->save();
+    //                 }
+
+    //                 $match->quantity -= $executedQty;
+    //                 if ($match->quantity == 0) {
+    //                     $match->delete();
+    //                 } else {
+    //                     $match->save();
+    //                 }
+
+    //                 $buyOrder = new $buyTable();
+    //                 $buyOrder->user_id = Auth::id();
+    //                 $buyOrder->bond_id = $bondId;
+    //                 $buyOrder->price = $match->price;
+    //                 $buyOrder->quantity = $executedQty;
+    //                 $buyOrder->total_cost = $executedCost;
+    //                 $buyOrder->save();
+    //             } else {
+    //                 $pendingOrder = new $buyTable();
+    //                 $pendingOrder->user_id = Auth::id();
+    //                 $pendingOrder->bond_id = $bondId;
+    //                 $pendingOrder->price = $price;
+    //                 $pendingOrder->quantity = $quantity;
+    //                 $pendingOrder->total_cost = $totalCost;
+    //                 $pendingOrder->status = 'pending';
+    //                 $pendingOrder->save();
+    //             }
+    //         } else if ($tradeType === "sell") {
+    //             $match = $buyTable::where('bond_id', $bondId)
+    //                 ->where('price', '>=', $price)
+    //                 ->orderBy('price', 'desc')
+    //                 ->first();
+
+    //             if ($match) {
+    //                 $executedQty = min($quantity, $match->quantity);
+    //                 $executedCost = $executedQty * $match->price;
+
+    //                 $userBalance->amount += $executedCost;
+    //                 $userBalance->save();
+
+    //                 $buyerBalance = AccountBalance::where('userId', $match->user_id)->first();
+    //                 if ($buyerBalance) {
+    //                     $buyerBalance->amount -= $executedCost;
+    //                     $buyerBalance->save();
+    //                 }
+
+    //                 $match->quantity -= $executedQty;
+    //                 if ($match->quantity == 0) {
+    //                     $match->delete();
+    //                 } else {
+    //                     $match->save();
+    //                 }
+
+    //                 $sellOrder = new $sellTable();
+    //                 $sellOrder->user_id = Auth::id();
+    //                 $sellOrder->bond_id = $bondId;
+    //                 $sellOrder->price = $match->price;
+    //                 $sellOrder->quantity = $executedQty;
+    //                 $sellOrder->total_cost = $executedCost;
+    //                 $sellOrder->save();
+    //             } else {
+    //                 $pendingOrder = new $sellTable();
+    //                 $pendingOrder->user_id = Auth::id();
+    //                 $pendingOrder->bond_id = $bondId;
+    //                 $pendingOrder->price = $price;
+    //                 $pendingOrder->quantity = $quantity;
+    //                 $pendingOrder->total_cost = $totalCost;
+    //                 $pendingOrder->status = 'pending';
+    //                 $pendingOrder->save();
+    //             }
+    //         }
+
+    //         DB::commit();
+    //         return response()->json(['message' => 'Trade executed successfully!']);
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         Log::error("Trade execution error: " . $e->getMessage());
+    //         return response()->json(['message' => 'Trade execution failed!'], 500);
+    //     }
+    // }
+
     public function executeTrade(Request $request)
     {
         $request->validate([
@@ -486,9 +627,8 @@ class TradeController extends Controller
         $price = $request->trade_price;
         $quantity = $request->trade_quantity;
         $tradeType = $request->trade_type;
-        $totalCost = $price * $quantity;
 
-        $userBalance = AccountBalance::where('userId', Auth::user()->id)->first();
+        $userBalance = AccountBalance::where('userId', Auth::id())->first();
         if (!$userBalance) {
             return response()->json(['message' => 'User balance not found!'], 400);
         }
@@ -513,40 +653,34 @@ class TradeController extends Controller
 
             if ($tradeType === "buy") {
                 $match = $sellTable::where('bond_id', $bondId)
-                    ->where('price', '<=', $price)
-                    ->orderBy('price', 'asc')
+                    ->where('price', $price)
+                    ->where('quantity', $quantity)
                     ->first();
 
                 if ($match) {
-                    $executedQty = min($quantity, $match->quantity);
-                    $executedCost = $executedQty * $match->price;
-
-                    if ($userBalance->amount < $executedCost) {
+                    if ($userBalance->amount < ($price * $quantity)) {
                         return response()->json(['message' => 'Insufficient balance!'], 400);
                     }
 
-                    $userBalance->amount -= $executedCost;
+                    $userBalance->amount -= ($price * $quantity);
                     $userBalance->save();
 
                     $sellerBalance = AccountBalance::where('userId', $match->user_id)->first();
                     if ($sellerBalance) {
-                        $sellerBalance->amount += $executedCost;
+                        $sellerBalance->amount += ($price * $quantity);
                         $sellerBalance->save();
                     }
 
-                    $match->quantity -= $executedQty;
-                    if ($match->quantity == 0) {
-                        $match->delete();
-                    } else {
-                        $match->save();
-                    }
+                    $match->status = 'executed';
+                    $match->save();
 
                     $buyOrder = new $buyTable();
                     $buyOrder->user_id = Auth::id();
                     $buyOrder->bond_id = $bondId;
-                    $buyOrder->price = $match->price;
-                    $buyOrder->quantity = $executedQty;
-                    $buyOrder->total_cost = $executedCost;
+                    $buyOrder->price = $price;
+                    $buyOrder->quantity = $quantity;
+                    $buyOrder->total_cost = ($price * $quantity);
+                    $buyOrder->status = 'executed';
                     $buyOrder->save();
                 } else {
                     $pendingOrder = new $buyTable();
@@ -554,42 +688,36 @@ class TradeController extends Controller
                     $pendingOrder->bond_id = $bondId;
                     $pendingOrder->price = $price;
                     $pendingOrder->quantity = $quantity;
-                    $pendingOrder->total_cost = $totalCost;
+                    $pendingOrder->total_cost = ($price * $quantity);
                     $pendingOrder->status = 'pending';
                     $pendingOrder->save();
                 }
-            } else if ($tradeType === "sell") {
+            } elseif ($tradeType === "sell") {
                 $match = $buyTable::where('bond_id', $bondId)
-                    ->where('price', '>=', $price)
-                    ->orderBy('price', 'desc')
+                    ->where('price', $price)
+                    ->where('quantity', $quantity)
                     ->first();
 
                 if ($match) {
-                    $executedQty = min($quantity, $match->quantity);
-                    $executedCost = $executedQty * $match->price;
-
-                    $userBalance->amount += $executedCost;
+                    $userBalance->amount += ($price * $quantity);
                     $userBalance->save();
 
                     $buyerBalance = AccountBalance::where('userId', $match->user_id)->first();
                     if ($buyerBalance) {
-                        $buyerBalance->amount -= $executedCost;
+                        $buyerBalance->amount -= ($price * $quantity);
                         $buyerBalance->save();
                     }
 
-                    $match->quantity -= $executedQty;
-                    if ($match->quantity == 0) {
-                        $match->delete();
-                    } else {
-                        $match->save();
-                    }
+                    $match->status = 'executed';
+                    $match->save();
 
                     $sellOrder = new $sellTable();
                     $sellOrder->user_id = Auth::id();
                     $sellOrder->bond_id = $bondId;
-                    $sellOrder->price = $match->price;
-                    $sellOrder->quantity = $executedQty;
-                    $sellOrder->total_cost = $executedCost;
+                    $sellOrder->price = $price;
+                    $sellOrder->quantity = $quantity;
+                    $sellOrder->total_cost = ($price * $quantity);
+                    $sellOrder->status = 'executed';
                     $sellOrder->save();
                 } else {
                     $pendingOrder = new $sellTable();
@@ -597,7 +725,7 @@ class TradeController extends Controller
                     $pendingOrder->bond_id = $bondId;
                     $pendingOrder->price = $price;
                     $pendingOrder->quantity = $quantity;
-                    $pendingOrder->total_cost = $totalCost;
+                    $pendingOrder->total_cost = ($price * $quantity);
                     $pendingOrder->status = 'pending';
                     $pendingOrder->save();
                 }

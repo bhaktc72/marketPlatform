@@ -110,12 +110,12 @@ class HomeController extends Controller
     {
         $userId = Auth::id();
 
-        $buyOrders = BondBuyOrder::where('user_id', $userId)->get();
-        $stateBuyOrders = StateBondBuyOrder::where('user_id', $userId)->get();
-        $centralBuyOrders = CentralBondBuyOrder::where('user_id', $userId)->get();
-        $sellOrders = BondSellOrder::where('user_id', $userId)->get();
-        $stateSellOrders = StateBondSellOrder::where('user_id', $userId)->get();
-        $centralSellOrders = CentralBondSellOrder::where('user_id', $userId)->get();
+        $buyOrders = BondBuyOrder::where('user_id', $userId)->where('status', 'executed')->get();
+        $stateBuyOrders = StateBondBuyOrder::where('user_id', $userId)->where('status', 'executed')->get();
+        $centralBuyOrders = CentralBondBuyOrder::where('user_id', $userId)->where('status', 'executed')->get();
+        $sellOrders = BondSellOrder::where('user_id', $userId)->where('status', 'executed')->get();
+        $stateSellOrders = StateBondSellOrder::where('user_id', $userId)->where('status', 'executed')->get();
+        $centralSellOrders = CentralBondSellOrder::where('user_id', $userId)->where('status', 'executed')   ->get();
 
         return view('user.bond.myOrders', compact('buyOrders', 'sellOrders', 'stateBuyOrders', 'stateSellOrders', 'centralBuyOrders', 'centralSellOrders'));
     }
