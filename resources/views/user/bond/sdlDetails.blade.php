@@ -74,16 +74,25 @@
                 <!-- Prices and Quantities Section -->
                 <div class="row mt-3 text-center">
                     <div class="col-md-6">
-                        <p><strong>Bid Price</strong></p>
-                        {{-- <p>₹ {{ $stateBuy->buy_price ?? 'N/A' }}</p> --}}
-                        {{-- <p><strong>Qty</strong>: {{ $stateBuy->quantity ?? 'N/A' }}</p> --}}
+                        <p><strong>Buy</strong></p>
+                        @forelse ($stateBuy as $buy)
+                            <p>₹ {{ $buy->price ?? '' }}</p>
+                            <p><strong>Qty</strong>: {{ $buy->quantity ?? '' }}</p>
+                        @empty
+                            <p>N/A</p>
+                        @endforelse
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Ask Price</strong></p>
-                        {{-- <p>₹ {{ $stateBond->ask_price ?? 'N/A' }}</p> --}}
-                        {{-- <p><strong>Qty</strong>: {{ $stateBond->ask_qty ?? 'N/A' }}</p> --}}
+                        <p><strong>Sell</strong></p>
+                        @forelse ($stateSell as $sell)
+                            <p>₹ {{ $sell->price ?? '' }}</p>
+                            <p><strong>Qty</strong>: {{ $sell->quantity ?? '' }}</p>
+                        @empty
+                            <p>N/A</p>
+                        @endforelse
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

@@ -37,8 +37,11 @@ class HomeController extends Controller
     {
         // Fetch the bond by its ID
         $bond = Bond::findOrFail($id);
+        $bondBuy = BondBuyOrder::where('bond_id', $id)->get();
+        $bondSell = BondSellOrder::where('bond_id', $id)->get();
 
-        return view('user.bond.gSecDetails', compact('bond'));
+
+        return view('user.bond.gSecDetails', compact('bond', 'bondBuy', 'bondSell'));
     }
 
 
@@ -68,9 +71,11 @@ class HomeController extends Controller
     public function govtBondDetails($id)
     {
         // Fetch the government bond by its ID
-        $govtBond = CentralGovtBonds::findOrFail($id);
+        $centralGovtBond = CentralGovtBonds::findOrFail($id);
+        $centralBuy = CentralBondBuyOrder::where('bond_id', $id)->get();
+        $centralSell = CentralBondSellOrder::where('bond_id', $id)->get();
 
-        return view('user.bond.govtBondDetails', compact('govtBond'));
+        return view('user.bond.govtBondDetails', compact('centralBuy', 'centralSell', 'centralGovtBond'));
     }
 
 

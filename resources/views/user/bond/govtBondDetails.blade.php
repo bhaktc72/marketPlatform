@@ -34,20 +34,20 @@
             <div class="card-body">
                 <!-- Top Section -->
                 <div class="row mb-3">
-                    <div class="col-md-6 fw-bold">{{ $govtBond->name }}</div>
-                    <div class="col-md-6 text-end fw-bold">Last Traded Price - ₹ {{ $govtBond->price ?? 'N/A' }}</div>
+                    <div class="col-md-6 fw-bold">{{ $centralGovtBond->isin }}</div>
+                    <div class="col-md-6 text-end fw-bold">Last Traded Price - ₹ {{ $centralGovtBond->price ?? 'N/A' }}</div>
                 </div>
 
                 <!-- Main Content Section -->
                 <div class="row">
                     <!-- Left Side -->
                     <div class="col-md-6 border-right">
-                        <p><strong>Maturity Date:</strong> {{ $govtBond->maturity_date }}</p>
-                        <p><strong>Coupon Rate:</strong> {{ $govtBond->coupon_rate }}%</p>
-                        <p><strong>Face Value:</strong> ₹ {{ $govtBond->face_value }}</p>
-                        <p><strong>Issue Date:</strong> {{ $govtBond->issue_date }}</p>
-                        <p><strong>Coupon Frequency:</strong> {{ $govtBond->coupon_frequency }} years</p>
-                        <p><strong>Residual Maturity:</strong> {{ $govtBond->residual_maturity }} years</p>
+                        <p><strong>Maturity Date:</strong> {{ $centralGovtBond->maturity_date }}</p>
+                        <p><strong>Coupon Rate:</strong> {{ $centralGovtBond->coupon_rate }}%</p>
+                        <p><strong>Face Value:</strong> ₹ {{ $centralGovtBond->face_value }}</p>
+                        <p><strong>Issue Date:</strong> {{ $centralGovtBond->issue_date }}</p>
+                        <p><strong>Coupon Frequency:</strong> {{ $centralGovtBond->coupon_frequency }} years</p>
+                        <p><strong>Residual Maturity:</strong> {{ $centralGovtBond->residual_maturity }} years</p>
                     </div>
 
                     <!-- Right Side -->
@@ -74,14 +74,22 @@
                 <!-- Prices and Quantities Section -->
                 <div class="row mt-3 text-center">
                     <div class="col-md-6">
-                        <p><strong>Bid Price</strong></p>
-                        <p>₹ {{ $govtBond->bid_price ?? 'N/A' }}</p>
-                        <p><strong>Qty</strong>: {{ $govtBond->bid_qty ?? 'N/A' }}</p>
+                        <p><strong>Buy</strong></p>
+                        @forelse ($centralBuy as $buy)
+                            <p>₹ {{ $buy->price ?? '' }}</p>
+                            <p><strong>Qty</strong>: {{ $buy->quantity ?? '' }}</p>
+                        @empty
+                            <p>N/A</p>
+                        @endforelse
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Ask Price</strong></p>
-                        <p>₹ {{ $govtBond->ask_price ?? 'N/A' }}</p>
-                        <p><strong>Qty</strong>: {{ $govtBond->ask_qty ?? 'N/A' }}</p>
+                        <p><strong>Sell</strong></p>
+                        @forelse ($centralSell as $sell)
+                            <p>₹ {{ $sell->price ?? '' }}</p>
+                            <p><strong>Qty</strong>: {{ $sell->quantity ?? '' }}</p>
+                        @empty
+                            <p>N/A</p>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -98,12 +106,12 @@
                 </div>
                 <div class="modal-body">
                     <form id="tradeForm">
-                        <input type="hidden" id="bond_id" name="bond_id" value="{{ $govtBond->id }}">
+                        <input type="hidden" id="bond_id" name="bond_id" value="{{ $centralGovtBond->id }}">
                         <input type="hidden" id="trade_type" name="trade_type">
 
                         <div class="mb-3">
                             <label class="form-label">Bond Name</label>
-                            <input type="text" class="form-control" id="bond_name" name="bond_name" value="{{ $govtBond->isin }}" readonly>
+                            <input type="text" class="form-control" id="bond_name" name="bond_name" value="{{ $centralGovtBond->isin }}" readonly>
                         </div>
 
                         <input type="hidden" class="form-control" id="bond_type" name="bond_type" value="central" readonly>
