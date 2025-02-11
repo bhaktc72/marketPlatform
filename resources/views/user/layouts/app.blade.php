@@ -58,6 +58,11 @@
                 <span class="text-light">UserID: {{ Auth::user()->userId ?? 'UserID' }}</span> <br>
                 <span class="text-light"> Account Balance: </span><span class="text-success fw-bold"> ₹10,000</span>
             </div>
+            {{-- 
+            @php
+                $account = \App\Models\AccountBalance::where('userId', Auth::user()->userId)->first();
+            @endphp
+            <span class="text-light"> Account Balance: </span><span class="text-success fw-bold">{{ $account ? number_format($account->amount, 2) : '10000.00' }}</span> --}}
         </nav>
     </header>
     <main>
